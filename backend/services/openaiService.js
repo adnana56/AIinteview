@@ -2,13 +2,13 @@ const axios = require('axios');
 require('dotenv').config();
 
 
-const TOGETHER_API_KEY = process.env.TOGETHER_API_KEY;
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 
-const MODEL_ENDPOINT = 'https://api.together.xyz/v1/chat/completions';
+const MODEL_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 
 const headers = {
-  Authorization: `Bearer ${TOGETHER_API_KEY}`,
+  Authorization: `Bearer ${GROQ_API_KEY}`,
   'Content-Type': 'application/json',
 };
 
@@ -23,7 +23,7 @@ const generateQuestion = async (resumeText, questions = [], answers = []) => {
   const qnaHistory = questions.map((q, i) => `Q${i + 1}: ${q}\nA${i + 1}: ${answers[i]}`).join('\n');
 
   const body = {
-    model: "mistralai/Mistral-7B-Instruct-v0.1",
+    model: "llama-3.3-70b-versatile",
     messages: [
       { role: "system", content: "You are an interviewer." },
       {
@@ -56,7 +56,7 @@ const generateQuestion = async (resumeText, questions = [], answers = []) => {
  * @returns {Promise<string>} - Evaluation feedback and score.
  */const evaluateAnswers = async (resumeText, questions, answers) => {
   const body = {
-    model: "mistralai/Mistral-7B-Instruct-v0.1",
+    model: "llama-3.3-70b-versatile",
     messages: [
       {
         role: "system",

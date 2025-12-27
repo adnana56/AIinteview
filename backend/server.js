@@ -11,7 +11,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-const allowedOrigins = ['http://:5173', 'http://:5174','https://iqup.netlify.app'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'https://iqup.netlify.app'
+];
 
 app.use(cors({
   origin: function (origin, callback) {

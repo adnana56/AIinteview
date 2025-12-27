@@ -25,7 +25,7 @@ function InterviewPage() {
     if (!sessionId) return;
 
     try {
-      const res = await axios.get(`https://iqup.onrender.com/api/question/${sessionId}`, {
+      const res = await axios.get(`http://localhost:5000/api/question/${sessionId}`, {
         withCredentials: true,
       });
       if (res.data.question) {
@@ -50,7 +50,7 @@ function InterviewPage() {
 
     try {
       await axios.post(
-        `https://iqup.onrender.com/api/question/${sessionId}`,
+        `http://localhost:5000/api/question/${sessionId}`,
         { answer: text },
         { withCredentials: true }
       );
@@ -117,7 +117,7 @@ function InterviewPage() {
 
   const handleShowEvaluation = async () => {
     try {
-      const res = await axios.get(`https://iqup.onrender.com/api/evaluate/${sessionId}`, {
+      const res = await axios.get(`http://localhost:5000/api/evaluate/${sessionId}`, {
         withCredentials: true,
       });
       if (res.data.evaluation) {
@@ -137,7 +137,7 @@ function InterviewPage() {
       <div className="absolute top-79 right-0 w-[300px] h-[300px] bg-purple-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
       <div className="absolute bottom-0 left-1/3 w-[300px] h-[300px] bg-blue-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
       <div className="absolute top-50 left-[245px] w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <Navbar/>
+      <Navbar />
       {/* Content */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 min-h-screen">
         <div className="p-4 flex flex-col justify-center items-center border-r border-gray-700">
@@ -157,9 +157,8 @@ function InterviewPage() {
           <button
             onClick={recording ? stopRecording : startRecording}
             disabled={question === 'Interview completed' || question === ''}
-            className={`mt-6 px-4 py-2 rounded transition ${
-              recording ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'
-            }`}
+            className={`mt-6 px-4 py-2 rounded transition ${recording ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'
+              }`}
           >
             {recording ? 'Stop Recording' : 'Answer Question (Record Voice)'}
           </button>
@@ -190,7 +189,7 @@ function InterviewPage() {
         </div>
       </div>
       <div>
-        <QuickLinksPage/>
+        <QuickLinksPage />
       </div>
     </div>
   );
