@@ -1,4 +1,3 @@
-// src/pages/UploadPage.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -28,49 +27,59 @@ export default function UploadPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden">
-      {/* Background blobs */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0" />
-      <div className="absolute top-60 md:top-80 left-0 w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute  top-30 md:top-79 right-0 w-[300px] h-[300px] bg-purple-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute bottom-30 md:bottom-0 left-1/3 w-[300px] h-[300px] bg-blue-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-10 md:top-50 left-245 w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-
-      {/* Navbar */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6">
-        <h2
-          className="text-3xl md:text-4xl font-bold mb-6 text-pink-400"
-          data-aos="fade-down"
-        >
-          Upload Your Resume (PDF)
-        </h2>
+      <div className="container mx-auto px-6 pt-32 pb-16">
+        <div className="max-w-2xl mx-auto">
+          <div className="glass-strong p-12 rounded-3xl text-center">
+            <div className="w-24 h-24 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
+              <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            </div>
 
-        <p className="mb-6 text-lg text-white/80 max-w-xl" data-aos="fade-up">
-          Upload your resume to begin your AI-powered mock interview journey.
-        </p>
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">
+              Upload Your Resume
+            </h2>
+            <p className="text-xl text-gray-600 mb-10">
+              Upload your PDF resume to begin your AI-powered interview preparation
+            </p>
 
-        <input
-          data-aos="zoom-in"
-          type="file"
-          accept=".pdf"
-          onChange={(e) => setResume(e.target.files[0])}
-          className="mb-6 bg-white text-black px-4 py-2 rounded shadow w-full max-w-sm"
-        />
+            <div className="mb-10">
+              <label className="glass px-8 py-5 rounded-2xl cursor-pointer hover-lift smooth-transition inline-block">
+                <input
+                  type="file"
+                  accept=".pdf"
+                  onChange={(e) => setResume(e.target.files[0])}
+                  className="hidden"
+                />
+                <div className="flex items-center gap-4">
+                  <svg className="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="text-gray-700 font-medium text-lg">
+                    {resume ? resume.name : 'Choose PDF File'}
+                  </span>
+                </div>
+              </label>
+            </div>
 
-        <button
-          data-aos="flip-left"
-          onClick={handleUpload}
-          className="bg-pink-500 text-white px-8 py-3 rounded-full shadow hover:bg-pink-600 transition duration-300"
-        >
-          Start Interview
-        </button>
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 rounded-3xl blur-xl opacity-50"></div>
+              <button
+                onClick={handleUpload}
+                disabled={!resume}
+                className="relative bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 text-white px-10 py-5 rounded-3xl font-bold text-xl hover-lift smooth-transition disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl"
+              >
+                Start Interview →
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+
       <QuickLinksPage />
-
-
     </div>
   );
 }

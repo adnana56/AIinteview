@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import QuickLinksPage from '../components/QuickLinks';
+
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition || null;
 
@@ -130,67 +131,79 @@ function InterviewPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden">
-      {/* Glowing Blobs Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0" />
-      <div className="absolute top-80 left-0 w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-79 right-0 w-[300px] h-[300px] bg-purple-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute bottom-0 left-1/3 w-[300px] h-[300px] bg-blue-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-50 left-[245px] w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
-      {/* Content */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 min-h-screen">
-        <div className="p-4 flex flex-col justify-center items-center border-r border-gray-700">
-          {webcamOn ? <WebcamFeed /> : <div className="text-gray-400">Webcam is off</div>}
-          <button
-            onClick={toggleWebcam}
-            className="mt-4 px-4 py-2 bg-red-600 rounded hover:bg-red-700 transition"
-          >
-            {webcamOn ? 'Turn Off Camera' : 'Turn On Camera'}
-          </button>
-        </div>
 
-        <div className="p-6  md:mt-15 justify-start items-start flex flex-col " >
-          <h2 className="text-2xl mb-4">Interview Question</h2>
-          <p className="text-lg bg-gray-800 p-4 rounded w-full">{question || 'Loading...'}</p>
-
-          <button
-            onClick={recording ? stopRecording : startRecording}
-            disabled={question === 'Interview completed' || question === ''}
-            className={`mt-6 px-4 py-2 rounded transition ${recording ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'
-              }`}
-          >
-            {recording ? 'Stop Recording' : 'Answer Question (Record Voice)'}
-          </button>
-
-          <button
-            onClick={handleNextQuestion}
-            disabled={recording || interviewCompleted || question === ''}
-            className="mt-4 px-4  py-2 bg-blue-600 rounded hover:bg-blue-700 transition"
-          >
-            Next Question
-          </button>
-
-          {evaluationReady && (
+      <div className="container mx-auto px-6 pt-24 pb-16">
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Webcam Section */}
+          <div className="glass-strong p-8 rounded-3xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Video Feed</h3>
+            {webcamOn ? (
+              <div className="rounded-2xl overflow-hidden">
+                <WebcamFeed />
+              </div>
+            ) : (
+              <div className="bg-gray-200 rounded-2xl h-64 flex items-center justify-center">
+                <p className="text-gray-500">Camera is off</p>
+              </div>
+            )}
             <button
-              onClick={handleShowEvaluation}
-              className="mt-4 px-4 py-2 bg-purple-600 rounded hover:bg-purple-700 transition"
+              onClick={toggleWebcam}
+              className="mt-6 w-full glass px-6 py-3 rounded-xl text-gray-700 font-medium hover-lift smooth-transition"
             >
-              Show Evaluation Result
+              {webcamOn ? 'Turn Off Camera' : 'Turn On Camera'}
             </button>
-          )}
+          </div>
 
-          {recognizedText && (
-            <div className="mt-4 w-full">
-              <h3 className="mb-2">Recognized Text:</h3>
-              <p className="bg-gray-800 p-3 rounded break-words">{recognizedText}</p>
+          {/* Interview Section */}
+          <div className="glass-strong p-8 rounded-3xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Interview Question</h3>
+            <div className="glass p-6 rounded-2xl mb-6 min-h-[120px]">
+              <p className="text-gray-700 text-lg">{question || 'Loading...'}</p>
             </div>
-          )}
+
+            <div className="space-y-4">
+              <button
+                onClick={recording ? stopRecording : startRecording}
+                disabled={question === 'Interview completed' || question === ''}
+                className={`w-full px-6 py-4 rounded-xl font-semibold smooth-transition ${recording
+                    ? 'bg-red-500 hover:bg-red-600 text-white'
+                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white'
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                {recording ? '⏹ Stop Recording' : '🎤 Answer Question (Record Voice)'}
+              </button>
+
+              <button
+                onClick={handleNextQuestion}
+                disabled={recording || interviewCompleted || question === ''}
+                className="w-full glass px-6 py-4 rounded-xl text-gray-700 font-semibold hover-lift smooth-transition disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next Question →
+              </button>
+
+              {evaluationReady && (
+                <button
+                  onClick={handleShowEvaluation}
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-xl font-semibold hover-lift smooth-transition"
+                >
+                  Show Evaluation Result
+                </button>
+              )}
+            </div>
+
+            {recognizedText && (
+              <div className="mt-6 glass p-6 rounded-2xl">
+                <h4 className="font-semibold text-gray-900 mb-2">Recognized Text:</h4>
+                <p className="text-gray-700">{recognizedText}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-      <div>
-        <QuickLinksPage />
-      </div>
+
+      <QuickLinksPage />
     </div>
   );
 }

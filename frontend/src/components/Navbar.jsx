@@ -14,25 +14,24 @@ const Navbar = () => {
   const navLinks = [
     { label: 'Home', path: '/' },
     { label: 'Practice', path: '/practice' },
-    { label: 'Blogs', path: '/blogs' },
-    { label: 'About', path: '/about' },
     
+    { label: 'About', path: '/about' },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md shadow-md">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-pink-500 tracking-widest" data-aos="fade-down">
-          IQUP
+    <nav className="fixed top-0 left-0 w-full z-50 glass-strong shadow-lg">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent tracking-wide" data-aos="fade-down">
+          TalentIQ
         </h1>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-6" data-aos="fade-down">
+        <ul className="hidden md:flex gap-8" data-aos="fade-down">
           {navLinks.map((link, index) => (
             <li key={index}>
               <Link
                 to={link.path}
-                className="text-white hover:text-pink-500 transition duration-300 cursor-pointer"
+                className="text-gray-700 hover:text-blue-600 font-medium smooth-transition cursor-pointer"
               >
                 {link.label}
               </Link>
@@ -42,7 +41,7 @@ const Navbar = () => {
 
         {/* Hamburger Icon */}
         <div
-          className="md:hidden text-white z-50"
+          className="md:hidden text-gray-700 z-50 cursor-pointer"
           onClick={() => setMenuOpen(!menuOpen)}
           data-aos="fade-down"
         >
@@ -52,16 +51,15 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 right-0 h-screen w-1/2 bg-gradient-to-b from-black to-blue-400 z-40 pt-4 transition-transform duration-500 ease-in-out ${
-          menuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed top-0 right-0 h-screen w-3/4 glass-strong z-40 pt-4 transition-transform duration-500 ease-in-out ${menuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         <ul className="flex flex-col items-start gap-6 pl-6 pt-20">
           {navLinks.map((link, index) => (
             <li key={index} className="w-full">
               <Link
                 to={link.path}
-                className="block text-white px-8 py-4 rounded-full text-lg font-medium hover:text-black hover:bg-white transition duration-700 ease-in"
+                className="block text-gray-700 px-8 py-4 rounded-2xl text-lg font-medium hover:bg-blue-50 smooth-transition"
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}

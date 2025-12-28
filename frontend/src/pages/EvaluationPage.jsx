@@ -2,6 +2,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import QuickLinksPage from '../components/QuickLinks';
+import ReactMarkdown from 'react-markdown';
+
 const EvaluationPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -10,49 +12,60 @@ const EvaluationPage = () => {
   useEffect(() => {
     if (!evaluation) {
       alert("No evaluation data found.");
-      navigate('/interview'); // redirect back if no data
+      navigate('/interview');
     }
   }, [evaluation, navigate]);
 
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden p-8 flex items-center justify-center">
-      {/* Glowing Blobs Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0" />
-      <div className="absolute top-10 left-0 w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-200 right-0 w-[300px] h-[300px] bg-purple-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-72 left-[245px] w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-300 left-0 w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-400 right-0 w-[300px] h-[300px] bg-purple-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute bottom-50 left-1/3 w-[300px] h-[300px] bg-blue-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-600 left-[245px] w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-            <div className="absolute top-500 left-0 w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-700 left-0 w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-300 left-0 w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-900 left-0 w-[300px] h-[300px] bg-pink-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute top-800 right-0 w-[300px] h-[300px] bg-purple-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
-      <div className="absolute bottom-150 left-0 w-[300px] h-[300px] bg-blue-500 opacity-40 rounded-full blur-3xl mix-blend-lighten z-0" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <Navbar />
 
-      <Navbar/>
-      {/* Main content */}
-      <div className="relative mt-7 z-10 max-w-3xl w-full bg-gray-900/30 p-8 rounded-lg shadow-2xl backdrop-blur-md">
-        <h1 className="text-3xl font-bold mb-6 text-center">Interview Evaluation</h1>
-
-        {evaluation ? (
-          <div>
-            <p className="mb-6 text-lg whitespace-pre-line leading-relaxed">{evaluation}</p>
-            <div className="flex justify-center">
-              <button
-                onClick={() => navigate('/')}
-                className="px-6 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition font-semibold"
-              >
-                Go to Home
-              </button>
+      <div className="container mx-auto px-6 pt-32 pb-16">
+        <div className="max-w-4xl mx-auto">
+          {/* Header Card */}
+          <div className="glass-strong p-8 rounded-3xl text-center mb-8">
+            <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-3xl flex items-center justify-center mx-auto mb-6">
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
             </div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Interview Evaluation</h1>
+            <p className="text-gray-600">Your detailed performance analysis</p>
           </div>
-        ) : (
-          <p className="text-center">Loading evaluation...</p>
-        )}
+
+          {/* Evaluation Content */}
+          {evaluation ? (
+            <div className="glass-strong p-10 rounded-3xl">
+              <div className="prose prose-lg max-w-none">
+                <ReactMarkdown className="text-gray-700 leading-relaxed whitespace-pre-line">
+                  {evaluation}
+                </ReactMarkdown>
+              </div>
+
+              <div className="mt-10 flex justify-center gap-4">
+                <button
+                  onClick={() => navigate('/')}
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl font-semibold hover-lift smooth-transition"
+                >
+                  Go to Home
+                </button>
+                <button
+                  onClick={() => navigate('/upload')}
+                  className="glass px-8 py-4 rounded-2xl text-gray-700 font-semibold hover-lift smooth-transition"
+                >
+                  Start New Interview
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="glass-strong p-12 rounded-3xl text-center">
+              <p className="text-gray-600">Loading evaluation...</p>
+            </div>
+          )}
+        </div>
       </div>
+
+      <QuickLinksPage />
     </div>
   );
 };

@@ -14,8 +14,8 @@ const languageOptions = {
 };
 
 const initialCode = {
-  python: "# Write your Python code here",
-  javascript: "// Write your JavaScript code here",
+  python: "# Write your Python code here\nprint('Hello, World!')",
+  javascript: "// Write your JavaScript code here\nconsole.log('Hello, World!');",
   java: `public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -69,80 +69,81 @@ const OnlineIDE = () => {
   };
 
   return (
-    <>
-    <div className="relative min-h-screen bg-black text-white overflow-hidden  ">
-        {/* Background blobs */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <Navbar />
 
-        <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-pink-500 opacity-30 rounded-full blur-3xl mix-blend-lighten z-0" />
-        <div className="absolute top-1/3 right-0 w-[300px] h-[300px] bg-purple-500 opacity-30 rounded-full blur-3xl mix-blend-lighten z-0" />
-        <div className="absolute bottom-0 left-1/3 w-[300px] h-[300px] bg-blue-500 opacity-30 rounded-full blur-3xl mix-blend-lighten z-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0" />
+      <div className="container mx-auto px-6 pt-32 pb-16">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            Online <span className="bg-gradient-to-r from-violet-600 via-purple-500 to-fuchsia-500 bg-clip-text text-transparent">Code Editor</span>
+          </h1>
+          <p className="text-xl text-gray-600">Write, run, and test your code in multiple languages</p>
+        </div>
 
-        <Navbar/>
-      
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Editor Section */}
+            <div className="glass-strong p-6 rounded-3xl">
+              <div className="mb-6">
+                <label className="block text-gray-700 font-semibold mb-3">Select Language</label>
+                <select
+                  className="w-full glass px-4 py-3 rounded-xl text-gray-700 font-medium smooth-transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={language}
+                  onChange={handleLanguageChange}
+                >
+                  <option value="python">Python</option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="java">Java</option>
+                  <option value="c">C</option>
+                  <option value="cpp">C++</option>
+                </select>
+              </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center gap-8 py-16 lg:pt-35 px-3">
-          <h1 className="text-5xl font-bold text-center mb-2 drop-shadow-xl">Online IDE</h1>
-
-          <div className="flex flex-col lg:flex-row gap-8 w-full">
-            {/* Editor and language selector */}
-            <div className="w-full lg:w-1/2 space-y-4">
-              <select
-                className="w-full p-3 bg-black border border-gray-600 text-white rounded-lg"
-                data-aos='flip-right'
-                value={language}
-                onChange={handleLanguageChange}
-              >
-                <option value="python">Python</option>
-                <option value="javascript">JavaScript</option>
-                <option value="java">Java</option>
-                <option value="c">C</option>
-                <option value="cpp">C++</option>
-              </select>
-
-              <div className="border border-gray-700 rounded-xl overflow-hidden shadow-xl"
-              data-aos='flip-right'>
+              <div className="rounded-2xl overflow-hidden border-2 border-gray-200">
                 <Editor
-                  height="400px"
+                  height="500px"
                   language={language}
                   value={code}
-                  theme="vs-dark"
+                  theme="vs-light"
                   onChange={(value) => setCode(value || "")}
                   options={{
                     minimap: { enabled: false },
-                    fontSize: 16,
+                    fontSize: 14,
                     fontFamily: "'Fira Code', monospace",
                     fontLigatures: true,
-                    theme: "vs-dark",
+                    padding: { top: 16, bottom: 16 },
                   }}
                 />
               </div>
             </div>
 
-            {/* Run + Output */}
-            <div className="w-full lg:w-1/2 flex flex-col gap-4">
+            {/* Output Section */}
+            <div className="glass-strong p-6 rounded-3xl flex flex-col">
               <button
                 onClick={runCode}
-                data-aos='flip-left'
-                className="flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition"
+                className="bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white font-semibold px-8 py-4 rounded-2xl hover-lift smooth-transition flex items-center justify-center gap-3 mb-6"
               >
                 <FaPlay /> Run Code
               </button>
 
-              <div className="bg-gray-800 bg-opacity-90 text-white rounded-lg p-5 h-[400px] overflow-y-auto shadow-inner whitespace-pre-wrap font-mono text-sm"
-              data-aos="flip-left">
-                {output}
+              <div className="flex-1 glass p-6 rounded-2xl">
+                <h3 className="text-gray-900 font-semibold mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Output
+                </h3>
+                <div className="bg-gray-900 text-green-400 rounded-xl p-4 h-[420px] overflow-y-auto font-mono text-sm whitespace-pre-wrap">
+                  {output || "// Output will appear here..."}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto">
-        <QuickLinksPage />
-      </div>
-    </>
+      <QuickLinksPage />
+    </div>
   );
 };
 
