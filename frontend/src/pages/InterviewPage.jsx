@@ -168,8 +168,8 @@ function InterviewPage() {
                 onClick={recording ? stopRecording : startRecording}
                 disabled={question === 'Interview completed' || question === ''}
                 className={`w-full px-6 py-4 rounded-xl font-semibold smooth-transition ${recording
-                    ? 'bg-red-500 hover:bg-red-600 text-white'
-                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white'
+                  ? 'bg-red-500 hover:bg-red-600 text-white'
+                  : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white'
                   } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 {recording ? '⏹ Stop Recording' : '🎤 Answer Question (Record Voice)'}
