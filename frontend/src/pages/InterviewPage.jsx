@@ -26,7 +26,7 @@ function InterviewPage() {
     if (!sessionId) return;
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/question/${sessionId}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/question/${sessionId}`, {
         withCredentials: true,
       });
       if (res.data.question) {
@@ -51,7 +51,7 @@ function InterviewPage() {
 
     try {
       await axios.post(
-        `http://localhost:5000/api/question/${sessionId}`,
+        `${import.meta.env.VITE_API_URL}/api/question/${sessionId}`,
         { answer: text },
         { withCredentials: true }
       );
@@ -118,7 +118,7 @@ function InterviewPage() {
 
   const handleShowEvaluation = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/evaluate/${sessionId}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/evaluate/${sessionId}`, {
         withCredentials: true,
       });
       if (res.data.evaluation) {
