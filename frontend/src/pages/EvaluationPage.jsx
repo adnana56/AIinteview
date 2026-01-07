@@ -36,8 +36,8 @@ const EvaluationPage = () => {
           {/* Evaluation Content */}
           {evaluation ? (
             <div className="glass-strong p-10 rounded-3xl">
-              <div className="prose prose-lg max-w-none">
-                <ReactMarkdown className="text-gray-700 leading-relaxed whitespace-pre-line">
+              <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed whitespace-pre-line">
+                <ReactMarkdown>
                   {evaluation}
                 </ReactMarkdown>
               </div>
